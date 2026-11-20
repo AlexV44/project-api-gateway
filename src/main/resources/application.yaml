@@ -1,3 +1,40 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/auth-realm}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://keycloak:8080/realms/auth-realm/protocol/openid-connect/certs}
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://user-service:8080
+          predicates:
+            - Path=/api/v1/users/**, /api/v1/cards/**
+
+        - id: auth-service
+          uri: http://keycloak:8080
+          predicates:
+            - Path=/realms/**
+
+        - id: order-service
+          uri: http://order-service:8082
+          predicates:
+            - Path=/api/v1/orders/**
+
+  keycloak:
+    server-url: ${KEYCLOAK_SERVER_URL:http://keycloak:8080}
+    realm: ${KEYCLOAK_REALM:auth-realm}
+    admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
+    admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET:}
+    admin-username: ${KEYCLOAK_ADMIN_USERNAME:admin}
+    admin-password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
+
+  services:
+    user-service-url: ${USER_SERVICE_URL:http://user-service:8080}
