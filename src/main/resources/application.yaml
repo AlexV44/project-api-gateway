@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8000
 
 spring:
   application:
@@ -28,13 +28,12 @@ spring:
           predicates:
             - Path=/api/v1/orders/**
 
-  keycloak:
-    server-url: ${KEYCLOAK_SERVER_URL:http://keycloak:8080}
-    realm: ${KEYCLOAK_REALM:auth-realm}
-    admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
-    admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET:}
-    admin-username: ${KEYCLOAK_ADMIN_USERNAME:admin}
-    admin-password: ${KEYCLOAK_ADMIN_PASSWORD:keycloack_password}
+keycloak:
+  url: ${KEYCLOAK_URL:http://keycloak:8080}
+  realm: auth-realm
+  login-client-id: ${KEYCLOAK_LOGIN_CLIENT_ID:auth-client}
+  service-client-id: ${KEYCLOAK_SERVICE_CLIENT_ID:gateway-service}
+  service-client-secret: ${KEYCLOAK_SERVICE_CLIENT_SECRET:}
 
-  services:
-    user-service-url: ${USER_SERVICE_URL:http://user-service:8080}
+services:
+  user-service-url: ${USER_SERVICE_URL:http://user-service:8080}
