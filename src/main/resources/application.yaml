@@ -34,7 +34,7 @@ spring:
     admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:admin-cli}
     admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET:}
     admin-username: ${KEYCLOAK_ADMIN_USERNAME:admin}
-    admin-password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
+    admin-password: ${KEYCLOAK_ADMIN_PASSWORD:keycloack_password}
 
   services:
     user-service-url: ${USER_SERVICE_URL:http://user-service:8080}
