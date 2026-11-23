@@ -139,10 +139,13 @@ services:
       DB_URL: jdbc:postgresql://order-db:5432/${ORDER_DB_NAME}
       DB_USERNAME: ${ORDER_DB_USER}
       DB_PASSWORD: ${ORDER_DB_PASSWORD}
+      USER_SERVICE_URL: http://user-service:8080
     depends_on:
       order-db:
         condition: service_healthy
       keycloak:
+        condition: service_started
+      user-service:
         condition: service_started
     networks:
       - app-network
